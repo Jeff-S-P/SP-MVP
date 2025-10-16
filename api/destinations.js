@@ -1,24 +1,18 @@
 // api/destinations.js
-// This function acts as a proxy between your frontend and Airtable
-// It solves the CORS issue by making the request server-side
-
 export default async function handler(req, res) {
-  // Set CORS headers to allow requests from anywhere
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Content-Type', 'application/json');
 
-  // Handle OPTIONS request (CORS preflight)
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
   try {
-    // Your Airtable credentials
-    const BASE_ID = 'applFAILmzMgqfien';
-    const API_KEY = 'patjUYAP4vzUi4497.f493dfe45f0fda133def50e634dd7e6ddbd5581bab464929c0f48af9e0e84974';
+    const BASE_ID = process.env.AIRTABLE_BASE_ID;
+    const API_KEY = process.env.AIRTABLE_API_KEY;
     const TABLE_NAME = 'Countries';
 
     // Fetch from Airtable
