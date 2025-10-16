@@ -41,6 +41,10 @@ export default async function handler(req, res) {
       
       if (Array.isArray(attachments) && attachments.length > 0) {
         imageUrl = attachments[0].url;
+        // Add params to keep URL fresh
+        if (!imageUrl.includes('?')) {
+          imageUrl += `?t=${Date.now()}`;
+        }
       }
       
       return {
